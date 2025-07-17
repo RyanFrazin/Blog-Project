@@ -11,6 +11,16 @@ app.get("/", (req, res) => {
     res.render("index.ejs", { posts });
 })
 
+app.get("/submit", (req, res) => {
+    const posts = ['Blog 1', 'Blog 2', 'Blog 3'];
+
+    res.render("index.ejs", { posts });
+})
+
+app.get("/post", (req, res) => {
+    res.render('post.ejs');
+})
+
 app.listen(port, (req, res) => {
     console.log(`Now listening on port ${port}`);
 })
