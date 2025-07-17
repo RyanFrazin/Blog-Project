@@ -2,19 +2,21 @@ import express from "express";
 
 const app = express();
 const port = 3000;
+var blogPosts = [];
 
 app.use(express.urlencoded({ extended: true }));
 
 app.get("/", (req, res) => {
-    const posts = ['Blog 1', 'Blog 2', 'Blog 3'];
+    const posts = blogPosts;
 
-    res.render("index.ejs", { posts });
+    res.render("index.ejs", { blogPosts });
 })
 
-app.get("/submit", (req, res) => {
-    const posts = ['Blog 1', 'Blog 2', 'Blog 3'];
+app.post("/submit", (req, res) => {
+    const { title } = req.body;
+    blogPosts.push(title);
 
-    res.render("index.ejs", { posts });
+    res.render("index.ejs", { blogPosts })
 })
 
 app.get("/post", (req, res) => {
