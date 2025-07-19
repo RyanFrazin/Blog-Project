@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Homepage</title>
-    <link rel="stylesheet" href="/styles.css">
+    <link rel="stylesheet" href="/public/styles/styles.css">
 </head>
 <body>
     <h1>Welcome to my Blog!</h1>
@@ -12,7 +12,7 @@
         <ul>
             <% blogPosts.forEach(blogPost => { %>
                 <li>
-                    <a>
+                    <a href="/posts/<%= blogPost %>" class="link">
                         <%= blogPost %>
                     </a>
                 </li>
