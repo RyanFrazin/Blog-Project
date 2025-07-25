@@ -1,6 +1,7 @@
 import express from "express";
 import fs from 'fs';
 import path from 'path';
+import { title } from "process";
 import { fileURLToPath } from 'url';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -21,8 +22,16 @@ app.get("/", (req, res) => {
 app.post("/submit", (req, res) => {
     const { title, content } = req.body;
 
-    const fullTemplate = `<html><h1><p>${title}</p></h1>${content}</html>`
     const safeTitle = title.replace(/[^a-zA-Z0-9-_]/g, '');
+    const fullTemplate = `
+    <html>
+        <body>
+            <h1>${title}</h1>
+            <p>${content}</p>
+            <a href="/" style="text-decoration:none;"><button>Home</button></a>
+            <a href="/edit/${safeTitle}" style="text-direction:none;"><button>Edit</button>
+        </body>
+    </html>`;
 
     fs.writeFile(`./views/posts/${safeTitle}.ejs`, fullTemplate, err => {
         if(err) {
@@ -36,7 +45,9 @@ app.post("/submit", (req, res) => {
 })
 
 app.get("/post", (req, res) => {
-    res.render('post.ejs');
+    const { title } = "Post Title";
+
+    res.render('post.ejs', { title });
 })
 
 app.get("/posts/:title", (req, res) => {
@@ -48,6 +59,17 @@ app.get("/posts/:title", (req, res) => {
     }
 
     res.render(`posts/${title}`);
+})
+
+app.get("/edit/:title", (req, res) => {
+    const title = req.params.title || "Post Title";
+    const index = blogPosts.findIndex(post => post == title);
+
+    if(index != -1) {
+        blogPosts.splice(index, 1);
+    }
+
+    res.render('post.ejs', { title });
 })
 
 app.listen(port, (req, res) => {
