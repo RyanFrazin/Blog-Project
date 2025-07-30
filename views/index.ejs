@@ -4,10 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Homepage</title>
-    <link rel="stylesheet" href="/public/styles/styles.css">
 </head>
 <body>
-    <h1>Welcome to my Blog!</h1>
+    <%- include('partials/header') %>
     <% if (blogPosts) { %>
         <ul>
             <% blogPosts.forEach(blogPost => { %>
@@ -19,7 +18,7 @@
             <% }); %>
         </ul>
     <% } %>
-    <form action="/post" method="GET">
+    <form action="/post" method="GET" id="form">
         <button type="submit">Create New Post</button>
     </form>
 </body>

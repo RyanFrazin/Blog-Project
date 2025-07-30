@@ -1,3 +1,25 @@
-.link {
-    color: blue;
+h1 {
+    display: flex;
+    width: 100%;
+    color: orange;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin: 25px;
+}
+
+#form {
+    display: flex;
+    justify-content: right;
+    margin: 25px;
+}
+
+button {
+    border-radius: 5%;
+    background-color: white;
+    color: black;
+}
+button:hover {
+    color: gray;
+    cursor: pointer;
 }
