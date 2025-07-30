@@ -1,17 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inline Post</title>
 </head>
+
 <body>
     <h1>Create a Post</h1>
     <form action="/submit" method="post">
-        <input type="text" name="title" placeholder=<%= title %>><br><br>
+        <input type="text" name="title" placeholder=<%=title %>><br><br>
         <textarea name="content" placeholder="Post content" rows="5" cols="30"></textarea><br><br>
         <button type="submit">Submit</button>
         <a href="/"><button>Home</button></a>
+        <button type="delete">Delete</button>
     </form>
 </body>
+
 </html>

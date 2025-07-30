@@ -30,6 +30,7 @@ app.post("/submit", (req, res) => {
             <p>${content}</p>
             <a href="/" style="text-decoration:none;"><button>Home</button></a>
             <a href="/edit/${safeTitle}" style="text-direction:none;"><button>Edit</button>
+            <a href="/delete/${safeTitle}" type="delete">Delete</button>
         </body>
     </html>`;
 
@@ -75,6 +76,31 @@ app.get("/edit/:title", (req, res) => {
 
   res.render("post.ejs", { title });
 });
+
+app.get("/delete/:title", (req, res) => {
+  const title = req.params.title;
+  
+  // Construct the file path based on the title
+  const sanitizedTitle = title.replace(/[^a-z0-9_\- ]/gi, ''); // Simple sanitization
+  const filePath = path.join(__dirname, 'views', 'posts', `${sanitizedTitle}.ejs`); // Adjust folder and extension
+
+  // Attempt to delete the file
+  fs.unlink(filePath, (err) => {
+    if (err) {
+      console.error(`Error deleting ${filePath}:`, err);
+      // Optionally show error page or flash message
+    } else {
+      console.log(`Deleted file: ${filePath}`);
+    }
+
+    // Update your blogPosts array if needed
+    blogPosts = blogPosts.filter(post => post !== title);
+
+    // Re-render the homepage
+    res.render("index.ejs", { blogPosts });
+  });
+});
+
 
 app.listen(port, (req, res) => {
   console.log(`Now listening on port ${port}`);
